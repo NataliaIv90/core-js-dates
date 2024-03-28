@@ -17,8 +17,8 @@
  * '01 Jan 1970 00:00:00 UTC' => 0
  * '04 Dec 1995 00:12:00 UTC' => 818035920000
  */
-function dateToTimestamp(/* date */) {
-  throw new Error('Not implemented');
+function dateToTimestamp(date) {
+  return new Date(date) - new Date('01 Jan 1970 00:00:00 UTC');
 }
 
 /**
@@ -31,8 +31,12 @@ function dateToTimestamp(/* date */) {
  * Date(2023, 5, 1, 8, 20, 55) => '08:20:55'
  * Date(2015, 10, 20, 23, 15, 1) => '23:15:01'
  */
-function getTime(/* date */) {
-  throw new Error('Not implemented');
+function getTime(date) {
+  const currentDate = new Date(date);
+  const formattedDate = (value) => {
+    return value < 10 ? `0${value}` : value;
+  };
+  return `${formattedDate(currentDate.getHours())}:${formattedDate(currentDate.getMinutes())}:${formattedDate(currentDate.getSeconds())}`;
 }
 
 /**
@@ -46,8 +50,17 @@ function getTime(/* date */) {
  * '03 Dec 1995 00:12:00 UTC' => 'Sunday'
  * '2024-01-30T00:00:00.000Z' => 'Tuesday'
  */
-function getDayName(/* date */) {
-  throw new Error('Not implemented');
+function getDayName(date) {
+  const days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  return days[new Date(date).getDay()];
 }
 
 /**
@@ -61,8 +74,14 @@ function getDayName(/* date */) {
  * Date('2024-02-13T00:00:00Z') => Date('2024-02-16T00:00:00Z')
  * Date('2024-02-16T00:00:00Z') => Date('2024-02-23T00:00:00Z')
  */
-function getNextFriday(/* date */) {
-  throw new Error('Not implemented');
+function getNextFriday(date) {
+  const daysToFriday = [5, 4, 3, 2, 1, 7, 6];
+  const currentDate = new Date(date);
+  const millisecondsInDay = 24 * 60 * 60 * 1000;
+  const nextFridayMilliseconds =
+    currentDate.getTime() +
+    daysToFriday[currentDate.getDay()] * millisecondsInDay;
+  return new Date(nextFridayMilliseconds);
 }
 
 /**
@@ -76,8 +95,8 @@ function getNextFriday(/* date */) {
  * 1, 2024 => 31
  * 2, 2024 => 29
  */
-function getCountDaysInMonth(/* month, year */) {
-  throw new Error('Not implemented');
+function getCountDaysInMonth(month, year) {
+  return new Date(year, month, 0).getDate();
 }
 
 /**
