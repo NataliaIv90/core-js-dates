@@ -212,17 +212,8 @@ function getCountWeekendsInMonth(month, year) {
  * Date(2024, 0, 31) => 5
  * Date(2024, 1, 23) => 8
  */
-function getWeekNumberByDate(date) {
-  const year = date.getFullYear();
-  const januaryFirst = new Date(year, 0, 1);
-  const januaryFirstDay = januaryFirst.getDay();
-  const daysSinceFirstMonday =
-    date - januaryFirst + (januaryFirstDay === 0 ? 1 : 8 - januaryFirstDay);
-  const weekNumber = Math.ceil(
-    daysSinceFirstMonday / (7 * 24 * 60 * 60 * 1000)
-  );
-
-  return weekNumber;
+function getWeekNumberByDate(/* date */) {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -297,8 +288,9 @@ function getWorkSchedule(/* period, countWorkDays, countOffDays */) {
  * Date(2022, 2, 1) => false
  * Date(2020, 2, 1) => true
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  const year = date.getFullYear();
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 }
 
 module.exports = {
